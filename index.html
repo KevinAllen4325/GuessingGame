@@ -87,7 +87,8 @@
 			color: #95A5A6;
 		}
 		
-		button {
+		#submit,
+		#newgame {
 			outline: none;
 			border: none;
 			width: 300px;
@@ -105,7 +106,8 @@
 			border: 1px solid #1F253D;
 		}
 		
-		button:hover {
+		#submit:hover,
+		#newgame:hover {
 			background: #e64c65;
 			color: #fff;
 			-webkit-transition: background 1s ease-in-out;
@@ -265,6 +267,70 @@
 			border-radius: 3px;
 		}
 		
+		#newgame {
+			display: none;
+		}
+		
+		.flash-button {
+			background: #CC324B;
+			padding: 5px 10px;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			animation-name: flash;
+			animation-duration: 1s;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+			//Firefox 1+
+			-webkit-animation-name: flash;
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-iteration-count: infinite;
+			//Safari 3-4
+			-moz-animation-name: flash;
+			-moz-animation-duration: 1s;
+			-moz-animation-timing-function: linear;
+			-moz-animation-iteration-count: infinite;
+		}
+		
+		@keyframes flash {
+			0% {
+				opacity: 1.0;
+			}
+			50% {
+				opacity: 0.5;
+			}
+			100% {
+				opacity: 1.0;
+			}
+		}
+		
+		//Firefox 1+
+		@-webkit-keyframes flash {
+			0% {
+				opacity: 1.0;
+			}
+			50% {
+				opacity: 0.5;
+			}
+			100% {
+				opacity: 1.0;
+			}
+		}
+		
+		//Safari 3-4
+		@-moz-keyframes flash {
+			0% {
+				opacity: 1.0;
+			}
+			50% {
+				opacity: 0.5;
+			}
+			100% {
+				opacity: 1.0;
+			}
+		}
+		
 		.list p {
 			display: inline-block;
 			background: #1A4E95;
@@ -281,7 +347,7 @@
 		
 		@media screen and (max-width: 768px) {
 			.game {
-				width: 100%;
+				width: 98%;
 			}
 		}
 	</style>
@@ -295,6 +361,7 @@
 			<form>
 				<input type="text" id="guess" placeholder="Enter your Guess">
 				<button type="button" id="submit">Guess</button>
+				<button class="flash-button" id="newgame" onclick="init()">Play again?</button>
 			</form>
 			<p class="guessnum">Guess #<span class="orange" id="count">0</span>!</p>
 			<div class="list" id="list"></div>
@@ -334,7 +401,7 @@
 			})
 			//START GAME//
 		var randomNum;
-		var count = 0;
+		var count = 1;
 		var head = document.getElementById('hoc')
 		init();
 		console.log(randomNum)
@@ -345,10 +412,12 @@
 		//Guess function//
 		function guessing() {
 			var guess = document.getElementById('guess').value;
+			document.getElementById('count').innerHTML = count;
 			if (guess == randomNum) {
 				head.innerHTML = 'You got it!';
-				document.getElementById('submit').disabled = true;
 				document.getElementById('guess').disabled = true;
+				document.getElementById('submit').style.display = 'none'
+				document.getElementById('newgame').style.display = 'inline-block'
 			}
 			else if (guess >= (randomNum - 10) && guess < randomNum || guess <= (randomNum + 10) && guess > randomNum) {
 				head.innerHTML = "HOT"
@@ -375,7 +444,6 @@
 			else {
 				head.innerHTML = "Guess a number between 1-100"
 			}
-			document.getElementById('count').innerHTML = count;
 			user.value = "";
 			count++
 		})
