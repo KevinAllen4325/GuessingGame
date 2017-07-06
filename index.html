@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<meta content='width=device-width, initial-scale=.9, maximum-scale=.9, user-scalable=0' name='viewport' />
+	<meta content="width=device-width, initial-scale=.9, maximum-scale=.9, user-scalable=0' name='viewport'" />
 	<meta charset="UTF-8">
 	<title>Hot or Cold?</title>
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
@@ -261,10 +261,12 @@
 		#gi {
 			font-size: 0.8em;
 			background: #1F253D;
-			color: #95a5a6;
+			color: white;
 			padding: 0.5em 2em;
 			margin-bottom: .4em;
 			border-radius: 3px;
+			border: none;
+			outline: none;
 		}
 		
 		#newgame {
@@ -361,23 +363,23 @@
 			<form>
 				<input type="text" id="guess" placeholder="Enter your Guess">
 				<button type="button" id="submit">Guess</button>
-				<button class="flash-button" id="newgame" onclick="init()">Play again?</button>
+				<button type="button" class="flash-button" id="newgame" onclick="init()">Play again?</button>
 			</form>
 			<p class="guessnum">Guess #<span class="orange" id="count">0</span>!</p>
 			<div class="list" id="list"></div>
 		</div>
 		<p class="htp" id="htp">WHAT ?</p>
-		<p class="ng" id="reload" onclick="init()">+ NEW GAME</p>
+		<p class="ng" onclick="init()">+ NEW GAME</p>
 		<div class="htpscreen" id="htps">
 			<div class="content">
 				<h3>What do I do?</h3>
 				<div>
 					<ul>
-						<p>This is a Hot or Cold Number Guessing Game. The game goes like this:</p>
-						<li>1. I pick a <span class="underline">random secret number</span> between 1 to 100 and keep it hidden.</li>
-						<li>2. You need to <span class="underline">guess</span> until you can find the hidden secret number.</li>
-						<li>3. You will <span class="underline">get feedback</span> on how close ("hot") or far ("cold") your guess is.</li>
-						<p>So, Are you ready?</p>
+						<p>This is a "Hot or Cold" number guessing game. The game goes like this:</p>
+						<li>1. I pick a <span class="underline">random number</span> between 1 to 100, keeping it hidden.</li>
+						<li>2. You need to <span class="underline">guess</span> until you can find the secret number.</li>
+						<li>3. You will <span class="underline">get feedback</span> on how close ("Hot") or far ("Cold") your guess is.</li>
+						<p>So, are you ready?</p>
 					</ul>
 					<button id="gi">Got It!</button>
 				</div>
@@ -402,50 +404,56 @@
 			//START GAME//
 		var randomNum;
 		var count = 1;
-		var head = document.getElementById('hoc')
+		var head = document.getElementById('hoc');
 		init();
-		console.log(randomNum)
-			//set random number//
+		//PAGE RESET//
 		function init() {
 			randomNum = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+			head.innerHTML = "Make your Guess!";
+			document.getElementById('guess').disabled = false;
+			document.getElementById('submit').style.display = 'inline-block';
+			document.getElementById('newgame').style.display = 'none';
+			document.getElementById('list').innerHTML = "";
+			count = 1;
+			document.getElementById('count').innerHTML = "0";
+			console.log(randomNum)
 		}
 		//Guess function//
 		function guessing() {
 			var guess = document.getElementById('guess').value;
 			document.getElementById('count').innerHTML = count;
-			if (guess == randomNum) {
+			if (count == 1 && guess != randomNum) {
+				head.innerHTML = "Good first guess, but that's not it";
+			}
+			else if (guess == randomNum) {
 				head.innerHTML = 'You got it!';
 				document.getElementById('guess').disabled = true;
-				document.getElementById('submit').style.display = 'none'
-				document.getElementById('newgame').style.display = 'inline-block'
+				document.getElementById('submit').style.display = 'none';
+				document.getElementById('newgame').style.display = 'inline-block';
 			}
 			else if (guess >= (randomNum - 10) && guess < randomNum || guess <= (randomNum + 10) && guess > randomNum) {
-				head.innerHTML = "HOT"
+				head.innerHTML = "HOT";
 			}
 			else if (guess >= (randomNum - 15) && guess < randomNum || guess <= (randomNum + 15) && guess > randomNum) {
-				head.innerHTML = "WARMER"
+				head.innerHTML = "WARMER";
 			}
 			else if (guess <= (randomNum - 15) && guess >= 1 || guess >= (randomNum + 15) && guess <= 100) {
-				head.innerHTML = "COLD"
+				head.innerHTML = "COLD";
 			}
 		}
-		//clear page
-		document.getElementById('reload').addEventListener('click', function () {
-				location.reload();
-			})
-			//Check if guess = random number
+		//Check if guess = random number
 		document.getElementById('submit').addEventListener('click', function () {
 			var user = document.getElementById('guess');
-			var guess = user.value
+			var guess = user.value;
 			if (guess != '' && guess > 0 && guess < 101 && guess != guess.match(/[a-z]/i)) {
 				document.getElementById('list').innerHTML += "<p>" + guess + "</p>";
 				guessing();
 			}
 			else {
-				head.innerHTML = "Guess a number between 1-100"
+				head.innerHTML = "Guess a number between 1-100";
 			}
 			user.value = "";
-			count++
+			count++;
 		})
 	</script>
 </body>
