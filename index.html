@@ -1,0 +1,385 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta content='width=device-width, initial-scale=.9, maximum-scale=.9, user-scalable=0' name='viewport' />
+	<meta charset="UTF-8">
+	<title>Hot or Cold?</title>
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			vertical-align: baseline;
+		}
+		
+		body,
+		html {
+			height: 100%;
+			overflow: hidden;
+		}
+		
+		body {
+			background-color: #394264;
+			overflow: hidden;
+			font-family: 'Lato';
+		}
+		
+		.body2 {
+			width: 98%;
+			height: 96%;
+			border-radius: 5px;
+			background-color: #1F253D;
+			margin: 13px auto 0;
+			position: relative;
+			-webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+			-moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+			box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+			text-align: center;
+		}
+		
+		h1 {
+			font-weight: 900;
+			font-size: 48px;
+			color: white;
+			padding-top: 84px;
+			padding-bottom: 35px;
+		}
+		
+		.game {
+			height: 385px;
+			width: 380px;
+			background: #394264;
+			border-radius: 5px;
+			margin: 0 auto;
+			position: relative;
+			box-shadow: rgb(26, 31, 52) 1px 1px, rgb(26, 31, 52) 2px 2px, rgb(26, 31, 52) 3px 3px, rgb(26, 31, 53) 4px 4px, rgb(26, 32, 53) 5px 5px, rgb(27, 32, 53) 6px 6px, rgb(27, 32, 54) 7px 7px, rgb(27, 32, 54) 8px 8px, rgb(27, 32, 54) 9px 9px, rgb(27, 33, 55) 10px 10px, rgb(27, 33, 55) 11px 11px, rgb(28, 33, 55) 12px 12px, rgb(28, 33, 56) 13px 13px, rgb(28, 34, 56) 14px 14px, rgb(28, 34, 56) 15px 15px, rgb(28, 34, 57) 16px 16px, rgb(29, 34, 57) 17px 17px, rgb(29, 34, 57) 18px 18px, rgb(29, 35, 58) 19px 19px, rgb(29, 35, 58) 20px 20px, rgb(29, 35, 58) 21px 21px, rgb(29, 35, 59) 22px 22px, rgb(30, 35, 59) 23px 23px, rgb(30, 36, 59) 24px 24px, rgb(30, 36, 60) 25px 25px, rgb(30, 36, 60) 26px 26px, rgb(30, 36, 60) 27px 27px, rgb(31, 37, 61) 28px 28px;
+		}
+		
+		h2 {
+			color: white;
+			background: #cc324b;
+			padding: 21px 0 22px;
+			font-size: 1.5em;
+			font-weight: 400;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+		
+		input {
+			display: block;
+			border-radius: 4px;
+			width: 300px;
+			height: 48px;
+			font-size: 32px;
+			font-family: 'Arial';
+			color: white !important;
+			background: #50597B;
+			outline: none;
+			border: 1px solid #1f253d;
+			margin: 25px auto;
+			text-align: center;
+			padding: .75em 0;
+		}
+		
+		input::placeholder {
+			color: #95A5A6;
+		}
+		
+		button {
+			outline: none;
+			border: none;
+			width: 300px;
+			background: #1F253D;
+			color: #95a5a6;
+			font-size: 2em;
+			padding: 0.2em .2em.15em;
+			-webkit-transition: background 1s ease-in-out;
+			-moz-transition: background 1s ease-in-out;
+			-ms-transition: background 1s ease-in-out;
+			-o-transition: background 1s ease-in-out;
+			transition: background 1s ease-in-out;
+			border-radius: 4px;
+			margin-top: 1px;
+			border: 1px solid #1F253D;
+		}
+		
+		button:hover {
+			background: #e64c65;
+			color: #fff;
+			-webkit-transition: background 1s ease-in-out;
+			-moz-transition: background 1s ease-in-out;
+			-ms-transition: background 1s ease-in-out;
+			-o-transition: background 1s ease-in-out;
+			transition: background 1s ease-in-out;
+			cursor: pointer;
+		}
+		
+		.guessnum {
+			color: black;
+			margin-top: 0.35em;
+			font-size: 1.8em;
+			padding-bottom: 0.5em;
+			font-size: 29px;
+			letter-spacing: 0;
+		}
+		
+		.orange {
+			font-size: 43px;
+			color: #f39c12;
+			font-weight: bold;
+		}
+		
+		.list {
+			background: #11A8AB;
+			height: 80px;
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+		
+		.htp {
+			left: 15.5px;
+		}
+		
+		.htp,
+		.ng {
+			color: white;
+			font-size: 19px;
+			font-weight: bold;
+			position: absolute;
+			top: 14px;
+			letter-spacing: .2px;
+			cursor: pointer;
+		}
+		
+		.ng {
+			right: 15.5px;
+		}
+		
+		.htpscreen {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background: #E74C3C;
+			color: white;
+			border-radius: 5px;
+			display: none;
+			z-index: 1;
+		}
+		
+		.content {
+			color: #fff;
+			background: #e74c3c;
+			position: relative;
+			height: auto;
+			width: 600px;
+			border-radius: 3px;
+			top: 15%;
+			margin: auto auto;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+		}
+		
+		.content h3 {
+			text-align: left;
+			margin: 0;
+			padding: 0.4em;
+			text-align: center;
+			font-size: 2.4em;
+			font-weight: 300;
+			opacity: 0.8;
+			background: rgba(0, 0, 0, 0.1);
+			border-radius: 3px 3px 0 0;
+		}
+		
+		.content > div {
+			padding: 15px 40px 30px;
+			margin: 0;
+			font-weight: 300;
+			font-size: 1.15em;
+		}
+		
+		.content > div p {
+			margin: 0;
+			padding: 10px 0;
+			line-height: 2em;
+			text-align: justify;
+		}
+		
+		.fadein {
+			animation: opac 1s
+		}
+		
+		@keyframes opac {
+			from {
+				opacity: 0
+			}
+			to {
+				opacity: 1
+			}
+		}
+		
+		.fadeout {
+			animation: opac2 1s
+		}
+		
+		@keyframes opac2 {
+			from {
+				opacity: 1
+			}
+			to {
+				opacity: 0
+			}
+		}
+		
+		.underline {
+			text-decoration: underline
+		}
+		
+		.content div ul li {
+			list-style: none;
+		}
+		
+		.content > div ul li {
+			padding: 5px 0;
+			display: block;
+			list-style-type: disc;
+			line-height: 1.5em;
+			text-align: justify;
+			margin-left: 20px;
+		}
+		
+		#gi {
+			font-size: 0.8em;
+			background: #1F253D;
+			color: #95a5a6;
+			padding: 0.5em 2em;
+			margin-bottom: .4em;
+			border-radius: 3px;
+		}
+		
+		.list p {
+			display: inline-block;
+			background: #1A4E95;
+			color: white;
+			padding: 3px;
+			margin: 5px;
+			width: 25px;
+		}
+		
+		.list {
+			overflow-x: auto;
+			text-align: center;
+		}
+		
+		@media screen and (max-width: 768px) {
+			.game {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="body2">
+		<h1>HOT <span class="or">or </span>COLD</h1>
+		<div class="game">
+			<h2 id="hoc">Make your Guess!</h2>
+			<form>
+				<input type="text" id="guess" placeholder="Enter your Guess">
+				<button type="button" id="submit">Guess</button>
+			</form>
+			<p class="guessnum">Guess #<span class="orange" id="count">0</span>!</p>
+			<div class="list" id="list"></div>
+		</div>
+		<p class="htp" id="htp">WHAT ?</p>
+		<p class="ng" id="reload" onclick="init()">+ NEW GAME</p>
+		<div class="htpscreen" id="htps">
+			<div class="content">
+				<h3>What do I do?</h3>
+				<div>
+					<ul>
+						<p>This is a Hot or Cold Number Guessing Game. The game goes like this:</p>
+						<li>1. I pick a <span class="underline">random secret number</span> between 1 to 100 and keep it hidden.</li>
+						<li>2. You need to <span class="underline">guess</span> until you can find the hidden secret number.</li>
+						<li>3. You will <span class="underline">get feedback</span> on how close ("hot") or far ("cold") your guess is.</li>
+						<p>So, Are you ready?</p>
+					</ul>
+					<button id="gi">Got It!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		//Fade in and out overlay//
+		var overlay = document.getElementById('htps');
+		document.getElementById('htp').addEventListener('click', function () {
+			overlay.classList.remove('fadeout');
+			overlay.classList.add('fadein')
+			overlay.style.display = 'block';
+		});
+		document.getElementById('gi').addEventListener('click', function () {
+				overlay.classList.remove('fadein');
+				overlay.classList.add('fadeout')
+				setTimeout(function () {
+					overlay.style.display = 'none'
+				}, 975);
+			})
+			//START GAME//
+		var randomNum;
+		var count = 0;
+		var head = document.getElementById('hoc')
+		init();
+		console.log(randomNum)
+			//set random number//
+		function init() {
+			randomNum = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+		}
+		//Guess function//
+		function guessing() {
+			var guess = document.getElementById('guess').value;
+			if (guess == randomNum) {
+				head.innerHTML = 'You got it!';
+				document.getElementById('submit').disabled = true;
+				document.getElementById('guess').disabled = true;
+			}
+			else if (guess >= (randomNum - 10) && guess < randomNum || guess <= (randomNum + 10) && guess > randomNum) {
+				head.innerHTML = "HOT"
+			}
+			else if (guess >= (randomNum - 15) && guess < randomNum || guess <= (randomNum + 15) && guess > randomNum) {
+				head.innerHTML = "WARMER"
+			}
+			else if (guess <= (randomNum - 15) && guess >= 1 || guess >= (randomNum + 15) && guess <= 100) {
+				head.innerHTML = "COLD"
+			}
+		}
+		//clear page
+		document.getElementById('reload').addEventListener('click', function () {
+				location.reload();
+			})
+			//Check if guess = random number
+		document.getElementById('submit').addEventListener('click', function () {
+			var user = document.getElementById('guess');
+			var guess = user.value
+			if (guess != '' && guess > 0 && guess < 101 && guess != guess.match(/[a-z]/i)) {
+				document.getElementById('list').innerHTML += "<p>" + guess + "</p>";
+				guessing();
+			}
+			else {
+				head.innerHTML = "Guess a number between 1-100"
+			}
+			document.getElementById('count').innerHTML = count;
+			user.value = "";
+			count++
+		})
+	</script>
+</body>
+
+</html>
