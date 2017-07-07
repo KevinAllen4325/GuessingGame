@@ -88,7 +88,8 @@
 		}
 		
 		#submit,
-		#newgame {
+		#newgame,
+		#submit:active {
 			outline: none;
 			border: none;
 			width: 300px;
@@ -427,8 +428,7 @@
 			document.getElementById('newgame').style.display = 'none';
 			document.getElementById('list').innerHTML = "";
 			count = 1;
-			document.getElementById('count').innerHTML = "0";
-			console.log(randomNum)
+			document.getElementById('count').innerHTML = "0";			
 		}
 		//Guess function//
 		function guessing() {
