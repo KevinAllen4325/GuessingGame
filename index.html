@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<meta content='width=device-width, initial-scale=.9, maximum-scale=.9, user-scalable=0' name='viewport' />
+	<meta name="viewport" content="width=device-width, initial-scale=.9">
 	<meta charset="UTF-8">
 	<title>Hot or Cold?</title>
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
@@ -88,8 +88,7 @@
 		}
 		
 		#submit,
-		#newgame,
-		#submit:active {
+		#newgame {
 			outline: none;
 			border: none;
 			width: 300px;
@@ -373,11 +372,11 @@
 		<h1>HOT <span class="or">or </span>COLD</h1>
 		<div class="game">
 			<h2 id="hoc">Make your Guess!</h2>
-			<form>
-				<input type="text" id="guess" autocomplete="off" placeholder="Enter your Guess">
+			<div>
+				<input type="text" id="guess" placeholder="Enter your Guess">
 				<button type="button" id="submit">Guess</button>
 				<button type="button" class="flash-button" id="newgame" onclick="init()">Play again?</button>
-			</form>
+			</div>
 			<p class="guessnum">Guess #<span class="orange" id="count">0</span>!</p>
 			<div class="list" id="list"></div>
 		</div>
@@ -414,6 +413,7 @@
 					overlay.style.display = 'none'
 				}, 975);
 			})
+		
 			//START GAME//
 		var randomNum;
 		var count = 1;
@@ -428,7 +428,8 @@
 			document.getElementById('newgame').style.display = 'none';
 			document.getElementById('list').innerHTML = "";
 			count = 1;
-			document.getElementById('count').innerHTML = "0";			
+			document.getElementById('count').innerHTML = "0";
+			console.log(randomNum)
 		}
 		//Guess function//
 		function guessing() {
